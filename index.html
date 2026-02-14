@@ -5,307 +5,277 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Valentine's Day Greeting</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap');
 
-  body {
-    margin: 0;
-    height: 100vh;
-    background: #d92d3e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    color: #fff5f7;
-    overflow: hidden;
-    position: relative;
-    padding: 20px;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  background: #d92d3e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  color: #fff5f7;
+  overflow: hidden;
+  position: relative;
+  padding: 20px;
+}
 
-  .container {
-    max-width: 600px;
-    padding: 20px;
-    z-index: 20;
-    background: rgba(0,0,0,0.2);
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    position: relative;
-  }
+.container {
+  max-width: 600px;
+  padding: 20px;
+  z-index: 20;
+  background: rgba(0,0,0,0.2);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  position: relative;
+}
 
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-  }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
 
-  .btn {
-    padding: 15px 35px;
-    font-size: 1.25rem;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    margin: 0 15px;
-    color: white;
-    position: relative;
-    transition: background-color 0.3s ease;
-  }
-  #yesBtn {
-    background-color: #ff4d6d;
-  }
-  #yesBtn:hover {
-    background-color: #ff7994;
-  }
-  #noBtn {
-    background-color: #6c757d;
-  }
-  #noBtn:hover {
-    background-color: #888c90;
-  }
+.btn {
+  padding: 15px 35px;
+  font-size: 1.25rem;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  margin: 0 15px;
+  color: white;
+  position: relative;
+  transition: all 0.3s ease;
+}
+#yesBtn {
+  background-color: #ff4d6d;
+}
+#yesBtn:hover {
+  background-color: #ff7994;
+}
+#noBtn {
+  background-color: #6c757d;
+}
+#noBtn:hover {
+  background-color: #888c90;
+}
 
-  #revealMsgBtn {
-    background-color: #ff4d6d;
-    border: none;
-    color: white;
-    font-size: 1.25rem;
-    padding: 12px 30px;
-    border-radius: 40px;
-    cursor: pointer;
-    margin-top: 30px;
-    transition: background-color 0.3s ease;
-    display: none; /* hidden initially */
-  }
-  #revealMsgBtn:hover {
-    background-color: #ff7994;
-  }
+#revealMsgBtn {
+  background-color: #ff4d6d;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  padding: 12px 30px;
+  border-radius: 40px;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: background-color 0.3s ease;
+  display: none; /* hidden initially */
+}
+#revealMsgBtn:hover {
+  background-color: #ff7994;
+}
 
-  #specialMsg {
-    margin-top: 30px;
-    font-size: 1.3rem;
-    color: #ffe6eb;
-    font-style: normal;
-    line-height: 1.6;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 1.2s ease, max-height 1.2s ease;
-  }
-  #specialMsg.show {
-    opacity: 1;
-    max-height: 500px;
-  }
+#specialMsg {
+  margin-top: 30px;
+  font-size: 1.3rem;
+  color: #ffe6eb;
+  font-style: normal;
+  line-height: 1.6;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 1.2s ease, max-height 1.2s ease;
+}
+#specialMsg.show {
+  opacity: 1;
+  max-height: 500px;
+}
 
-  /* Floating hearts in background */
-  .heart {
-    position: absolute;
-    background: #ff9fb9;
-    width: 25px;
-    height: 25px;
-    transform: rotate(-45deg);
-    border-radius: 25px 25px 0 0;
-    animation: floatUp linear infinite;
-  }
-  .heart:before,
-  .heart:after {
-    content: "";
-    position: absolute;
-    background: #ff9fb9;
-    border-radius: 50%;
-  }
-  .heart:before {
-    width: 25px;
-    height: 25px;
-    top: -12.5px;
-    left: 0;
-  }
-  .heart:after {
-    width: 25px;
-    height: 25px;
-    left: 12.5px;
-    top: 0;
-  }
+/* Floating hearts in background */
+.heart {
+  position: absolute;
+  background: #ff9fb9;
+  width: 25px;
+  height: 25px;
+  transform: rotate(-45deg);
+  border-radius: 25px 25px 0 0;
+  animation: floatUp linear infinite;
+}
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  background: #ff9fb9;
+  border-radius: 50%;
+}
+.heart:before { width: 25px; height: 25px; top: -12.5px; left: 0; }
+.heart:after { width: 25px; height: 25px; left: 12.5px; top: 0; }
 
-  @keyframes floatUp {
-    0% {
-      opacity: 1;
-      transform: translateY(0) rotate(-45deg);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-800px) rotate(-45deg);
-    }
-  }
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0) rotate(-45deg); }
+  100% { opacity: 0; transform: translateY(-800px) rotate(-45deg); }
+}
 
-  /* Confetti hearts style */
-  #confetti-canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 30;
-  }
+/* Confetti hearts style */
+#confetti-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 30;
+}
 
-  /* Responsive */
-  @media (max-width: 600px) {
-    h1 { font-size: 2.5rem; }
-    .btn, #revealMsgBtn { font-size: 1rem; padding: 12px 25px; }
-    #specialMsg { font-size: 1.1rem; }
-  }
+/* Responsive */
+@media (max-width: 600px) {
+  h1 { font-size: 2.5rem; }
+  .btn, #revealMsgBtn { font-size: 1rem; padding: 12px 25px; }
+  #specialMsg { font-size: 1.1rem; }
+}
 </style>
 </head>
 <body>
-  <div class="container" role="main" aria-label="Valentine's Day question and message">
-    <h1 id="question">Hi Divya, will you be my Valentine? 💖</h1>
-    
-    <button id="yesBtn" class="btn" aria-controls="specialMsg" aria-expanded="false">Yes ❤️</button>
-    <button id="noBtn" class="btn">No 🙈</button>
 
-    <button id="revealMsgBtn" aria-controls="specialMsg" aria-expanded="false" aria-label="Reveal special message">
-      Reveal My Special Message 💌
-    </button>
+<div class="container" role="main" aria-label="Valentine's Day question and message">
+  <h1 id="question">Hi Divya, will you be my Valentine? 💖</h1>
+  
+  <button id="yesBtn" class="btn">Yes ❤️</button>
+  <button id="noBtn" class="btn">No 🙈</button>
 
-    <div id="specialMsg" role="region" aria-live="polite" tabindex="0">
-      Hi cutie, you are the most wonderful thing that ever happened to me.  
-      I feel incredibly blessed to have you in my life.  
-      I love you to the moon and back — always and forever.  
-      No matter what, I'll always be there for you.  
-      You are my heart, my soul, my everything.
-    </div>
+  <h1 id="valentineMsg" style="display:none; margin-top:20px;">Happy Valentine's Day 💕</h1>
+  <button id="revealMsgBtn" aria-controls="specialMsg" aria-expanded="false" aria-label="Reveal special message">
+    Reveal My Special Message 💌
+  </button>
+
+  <div id="specialMsg" role="region" aria-live="polite" tabindex="0">
+    Hi cutie, you are the most wonderful thing that ever happened to me.  
+    I feel incredibly blessed to have you in my life.  
+    I love you to the moon and back — always and forever.  
+    No matter what, I'll always be there for you.  
+    You are my heart, my soul, my everything.
   </div>
+</div>
 
-  <audio autoplay loop muted id="bgMusic" preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2023/01/18/audio_857ca00936.mp3?filename=romantic-piano-loop-10567.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
-  </audio>
+<audio autoplay loop muted id="bgMusic" preload="auto" playsinline>
+  <source src="https://cdn.pixabay.com/download/audio/2023/01/18/audio_857ca00936.mp3?filename=romantic-piano-loop-10567.mp3" type="audio/mpeg" />
+</audio>
 
-  <canvas id="confetti-canvas"></canvas>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-  // No button runs away on hover
-  const noBtn = document.getElementById('noBtn');
-  noBtn.addEventListener('mouseover', () => {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-    noBtn.style.position = 'absolute';
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
-  });
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const revealBtn = document.getElementById('revealMsgBtn');
+const specialMsg = document.getElementById('specialMsg');
+const valentineMsg = document.getElementById('valentineMsg');
+const music = document.getElementById('bgMusic');
+const confettiCanvas = document.getElementById('confetti-canvas');
+const ctx = confettiCanvas.getContext('2d');
 
-  // Yes button clicked -> hide Yes/No buttons, show reveal message button
-  const yesBtn = document.getElementById('yesBtn');
-  const revealBtn = document.getElementById('revealMsgBtn');
-  const specialMsg = document.getElementById('specialMsg');
-  const music = document.getElementById('bgMusic');
+// NO button moves slightly on hover (does NOT disappear)
+noBtn.addEventListener('mouseover', () => {
+  const x = parseFloat(noBtn.style.left || 0) + (Math.random() * 60 - 30);
+  const y = parseFloat(noBtn.style.top || 0) + (Math.random() * 60 - 30);
+  noBtn.style.position = 'absolute';
+  noBtn.style.left = `${Math.min(Math.max(x,0),window.innerWidth-noBtn.offsetWidth)}px`;
+  noBtn.style.top = `${Math.min(Math.max(y,0),window.innerHeight-noBtn.offsetHeight)}px`;
+});
 
-  yesBtn.addEventListener('click', () => {
-    yesBtn.style.display = 'none';
-    noBtn.style.display = 'none';
-    revealBtn.style.display = 'inline-block';
-    // Update aria
-    revealBtn.setAttribute('aria-expanded', 'false');
-  });
+// YES button clicked -> show Valentine message and Reveal button
+yesBtn.addEventListener('click', () => {
+  yesBtn.style.display = 'none';
+  noBtn.style.display = 'none';
+  valentineMsg.style.display = 'block';
+  revealBtn.style.display = 'inline-block';
+});
 
-  // Reveal message button logic
-  revealBtn.addEventListener('click', () => {
-    const expanded = revealBtn.getAttribute('aria-expanded') === 'true';
-    revealBtn.setAttribute('aria-expanded', !expanded);
-    specialMsg.classList.toggle('show');
-
-    if (!expanded) {
-      music.muted = false;
-      music.play();
-      startConfetti();
-      specialMsg.focus(); // accessibility focus
-    }
-  });
-
-  // Floating hearts background
-  function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.style.left = Math.random() * window.innerWidth + 'px';
-    heart.style.top = window.innerHeight + 30 + 'px'; // start below screen
-    heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-    heart.style.width = 15 + Math.random() * 20 + 'px';
-    heart.style.height = heart.style.width;
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 10000);
+// Reveal special message
+revealBtn.addEventListener('click', () => {
+  const expanded = revealBtn.getAttribute('aria-expanded') === 'true';
+  revealBtn.setAttribute('aria-expanded', !expanded);
+  specialMsg.classList.toggle('show');
+  if (!expanded) {
+    music.muted = false;
+    music.play().catch(err => console.log(err));
+    startConfetti();
+    specialMsg.focus();
   }
-  setInterval(createHeart, 400);
+});
 
-  // Confetti canvas setup
-  const confettiCanvas = document.getElementById('confetti-canvas');
-  const ctx = confettiCanvas.getContext('2d');
+// Floating hearts background
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.top = window.innerHeight + 30 + 'px';
+  heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+  heart.style.width = 15 + Math.random() * 20 + 'px';
+  heart.style.height = heart.style.width;
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 10000);
+}
+setInterval(createHeart, 400);
 
-  function resizeCanvas() {
-    confettiCanvas.width = window.innerWidth;
-    confettiCanvas.height = window.innerHeight;
+// Confetti canvas setup
+function resizeCanvas() {
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class ConfettiHeart {
+  constructor() {
+    this.x = Math.random() * confettiCanvas.width;
+    this.y = Math.random() * confettiCanvas.height - confettiCanvas.height;
+    this.size = 10 + Math.random() * 15;
+    this.color = `hsl(${Math.random() * 30 + 340}, 90%, 75%)`;
+    this.tilt = Math.random() * 10 - 10;
+    this.tiltAngle = 0;
+    this.tiltSpeed = 0.05 + Math.random() * 0.05;
+    this.speedY = 2 + Math.random() * 2;
   }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-
-  // Confetti heart class
-  class ConfettiHeart {
-    constructor() {
+  draw() {
+    const ctx = confettiCanvas.getContext('2d');
+    ctx.beginPath();
+    const x = this.x + this.tilt;
+    const y = this.y;
+    ctx.moveTo(x, y);
+    ctx.bezierCurveTo(x, y - this.size/2, x - this.size, y - this.size/2, x - this.size, y);
+    ctx.bezierCurveTo(x - this.size, y + this.size/2, x - this.size/2, y + this.size, x, y + this.size);
+    ctx.bezierCurveTo(x + this.size/2, y + this.size, x + this.size, y + this.size/2, x + this.size, y);
+    ctx.bezierCurveTo(x + this.size, y - this.size/2, x, y - this.size/2, x, y);
+    ctx.closePath();
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+  update() {
+    this.y += this.speedY;
+    this.tiltAngle += this.tiltSpeed;
+    this.tilt = Math.sin(this.tiltAngle) * 10;
+    if (this.y > confettiCanvas.height + this.size) {
+      this.y = -this.size;
       this.x = Math.random() * confettiCanvas.width;
-      this.y = Math.random() * confettiCanvas.height - confettiCanvas.height;
-      this.size = 10 + Math.random() * 15;
-      this.color = `hsl(${Math.random() * 30 + 340}, 90%, 75%)`;
-      this.tilt = Math.random() * 10 - 10;
-      this.tiltAngle = 0;
-      this.tiltSpeed = 0.05 + Math.random() * 0.05;
-      this.speedY = 2 + Math.random() * 2;
-    }
-
-    draw() {
-      const ctx = confettiCanvas.getContext('2d');
-      ctx.beginPath();
-
-      const x = this.x + this.tilt;
-      const y = this.y;
-
-      ctx.moveTo(x, y);
-      ctx.bezierCurveTo(x, y - this.size / 2, x - this.size, y - this.size / 2, x - this.size, y);
-      ctx.bezierCurveTo(x - this.size, y + this.size / 2, x - this.size / 2, y + this.size, x, y + this.size);
-      ctx.bezierCurveTo(x + this.size / 2, y + this.size, x + this.size, y + this.size / 2, x + this.size, y);
-      ctx.bezierCurveTo(x + this.size, y - this.size / 2, x, y - this.size / 2, x, y);
-      ctx.closePath();
-
-      ctx.fillStyle = this.color;
-      ctx.fill();
-    }
-
-    update() {
-      this.y += this.speedY;
-      this.tiltAngle += this.tiltSpeed;
-      this.tilt = Math.sin(this.tiltAngle) * 10;
-
-      if (this.y > confettiCanvas.height + this.size) {
-        this.y = -this.size;
-        this.x = Math.random() * confettiCanvas.width;
-      }
     }
   }
+}
 
-  let confettiHearts = [];
-  function startConfetti() {
-    confettiHearts = [];
-    for (let i = 0; i < 100; i++) {
-      confettiHearts.push(new ConfettiHeart());
-    }
-    animateConfetti();
-  }
-
-  function animateConfetti() {
-    ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-    confettiHearts.forEach(h => {
-      h.update();
-      h.draw();
-    });
-    requestAnimationFrame(animateConfetti);
-  }
+let confettiHearts = [];
+function startConfetti() {
+  confettiHearts = [];
+  for (let i = 0; i < 100; i++) confettiHearts.push(new ConfettiHeart());
+  animateConfetti();
+}
+function animateConfetti() {
+  ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+  confettiHearts.forEach(h => { h.update(); h.draw(); });
+  requestAnimationFrame(animateConfetti);
+}
 </script>
 </body>
 </html>
