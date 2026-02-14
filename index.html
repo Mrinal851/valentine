@@ -54,15 +54,12 @@ h1 {
 #yesBtn {
   background-color: #ff4d6d;
 }
-#yesBtn:hover {
-  background-color: #ff7994;
-}
+#yesBtn:hover { background-color: #ff7994; }
+
 #noBtn {
   background-color: #6c757d;
 }
-#noBtn:hover {
-  background-color: #888c90;
-}
+#noBtn:hover { background-color: #888c90; }
 
 #revealMsgBtn {
   background-color: #ff4d6d;
@@ -76,9 +73,7 @@ h1 {
   transition: background-color 0.3s ease;
   display: none; /* hidden initially */
 }
-#revealMsgBtn:hover {
-  background-color: #ff7994;
-}
+#revealMsgBtn:hover { background-color: #ff7994; }
 
 #specialMsg {
   margin-top: 30px;
@@ -173,21 +168,23 @@ const yesBtn = document.getElementById('yesBtn');
 const revealBtn = document.getElementById('revealMsgBtn');
 const specialMsg = document.getElementById('specialMsg');
 const valentineMsg = document.getElementById('valentineMsg');
+const question = document.getElementById('question');
 const music = document.getElementById('bgMusic');
 const confettiCanvas = document.getElementById('confetti-canvas');
 const ctx = confettiCanvas.getContext('2d');
 
-// NO button moves slightly on hover (does NOT disappear)
+// NO button runs away significantly on hover
 noBtn.addEventListener('mouseover', () => {
-  const x = parseFloat(noBtn.style.left || 0) + (Math.random() * 60 - 30);
-  const y = parseFloat(noBtn.style.top || 0) + (Math.random() * 60 - 30);
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
   noBtn.style.position = 'absolute';
-  noBtn.style.left = `${Math.min(Math.max(x,0),window.innerWidth-noBtn.offsetWidth)}px`;
-  noBtn.style.top = `${Math.min(Math.max(y,0),window.innerHeight-noBtn.offsetHeight)}px`;
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
 });
 
-// YES button clicked -> show Valentine message and Reveal button
+// YES button clicked -> hide question & buttons, show Valentine message and Reveal button
 yesBtn.addEventListener('click', () => {
+  question.style.display = 'none';
   yesBtn.style.display = 'none';
   noBtn.style.display = 'none';
   valentineMsg.style.display = 'block';
