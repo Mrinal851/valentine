@@ -32,28 +32,36 @@
     position: relative;
   }
 
-  .main-text {
+  h1 {
     font-family: 'Playfair Display', serif;
     font-size: 3.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     font-weight: 700;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   }
 
-  .sub-text {
-    font-size: 1.2rem;
-    font-style: italic;
-    opacity: 0.85;
-    line-height: 1.5;
-    margin-top: 0;
-    text-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+  .btn {
+    padding: 15px 35px;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 0 15px;
+    color: white;
+    position: relative;
+    transition: background-color 0.3s ease;
   }
-
-  .from-text {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    opacity: 0.6;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+  #yesBtn {
+    background-color: #ff4d6d;
+  }
+  #yesBtn:hover {
+    background-color: #ff7994;
+  }
+  #noBtn {
+    background-color: #6c757d;
+  }
+  #noBtn:hover {
+    background-color: #888c90;
   }
 
   #revealMsgBtn {
@@ -64,8 +72,9 @@
     padding: 12px 30px;
     border-radius: 40px;
     cursor: pointer;
-    margin-top: 25px;
+    margin-top: 30px;
     transition: background-color 0.3s ease;
+    display: none; /* hidden initially */
   }
   #revealMsgBtn:hover {
     background-color: #ff7994;
@@ -138,18 +147,20 @@
     z-index: 30;
   }
 
+  /* Responsive */
   @media (max-width: 600px) {
-    .main-text { font-size: 2.5rem; }
-    .sub-text { font-size: 1rem; }
+    h1 { font-size: 2.5rem; }
+    .btn, #revealMsgBtn { font-size: 1rem; padding: 12px 25px; }
     #specialMsg { font-size: 1.1rem; }
   }
 </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <p class="from-text" aria-label="Sender and receiver">Dearest Olivia, your Oliver wishes you</p>
-    <h1 class="main-text">Happy Valentine's Day</h1>
-    <p class="sub-text">I love you with all my heart and I want to thank you for being the light of my life.</p>
+  <div class="container" role="main" aria-label="Valentine's Day question and message">
+    <h1 id="question">Hi Divya, will you be my Valentine? 💖</h1>
+    
+    <button id="yesBtn" class="btn" aria-controls="specialMsg" aria-expanded="false">Yes ❤️</button>
+    <button id="noBtn" class="btn">No 🙈</button>
 
     <button id="revealMsgBtn" aria-controls="specialMsg" aria-expanded="false" aria-label="Reveal special message">
       Reveal My Special Message 💌
@@ -171,111 +182,130 @@
 
   <canvas id="confetti-canvas"></canvas>
 
-  <script>
-    // Floating hearts background
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.top = window.innerHeight + 30 + 'px'; // start below screen
-      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      heart.style.width = 15 + Math.random() * 20 + 'px';
-      heart.style.height = heart.style.width;
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
+<script>
+  // No button runs away on hover
+  const noBtn = document.getElementById('noBtn');
+  noBtn.addEventListener('mouseover', () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+  });
+
+  // Yes button clicked -> hide Yes/No buttons, show reveal message button
+  const yesBtn = document.getElementById('yesBtn');
+  const revealBtn = document.getElementById('revealMsgBtn');
+  const specialMsg = document.getElementById('specialMsg');
+  const music = document.getElementById('bgMusic');
+
+  yesBtn.addEventListener('click', () => {
+    yesBtn.style.display = 'none';
+    noBtn.style.display = 'none';
+    revealBtn.style.display = 'inline-block';
+    // Update aria
+    revealBtn.setAttribute('aria-expanded', 'false');
+  });
+
+  // Reveal message button logic
+  revealBtn.addEventListener('click', () => {
+    const expanded = revealBtn.getAttribute('aria-expanded') === 'true';
+    revealBtn.setAttribute('aria-expanded', !expanded);
+    specialMsg.classList.toggle('show');
+
+    if (!expanded) {
+      music.muted = false;
+      music.play();
+      startConfetti();
+      specialMsg.focus(); // accessibility focus
     }
-    setInterval(createHeart, 400);
+  });
 
-    // Reveal special message button and music unmute
-    const btn = document.getElementById('revealMsgBtn');
-    const msg = document.getElementById('specialMsg');
-    const music = document.getElementById('bgMusic');
-    const confettiCanvas = document.getElementById('confetti-canvas');
-    const ctx = confettiCanvas.getContext('2d');
+  // Floating hearts background
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.top = window.innerHeight + 30 + 'px'; // start below screen
+    heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+    heart.style.width = 15 + Math.random() * 20 + 'px';
+    heart.style.height = heart.style.width;
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+  }
+  setInterval(createHeart, 400);
 
-    btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', !expanded);
-      msg.classList.toggle('show');
+  // Confetti canvas setup
+  const confettiCanvas = document.getElementById('confetti-canvas');
+  const ctx = confettiCanvas.getContext('2d');
 
-      // Unmute and play music on first click
-      if (!expanded) {
-        music.muted = false;
-        music.play();
-        startConfetti();
-      }
-    });
+  function resizeCanvas() {
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
 
-    // Resize confetti canvas
-    function resizeCanvas() {
-      confettiCanvas.width = window.innerWidth;
-      confettiCanvas.height = window.innerHeight;
+  // Confetti heart class
+  class ConfettiHeart {
+    constructor() {
+      this.x = Math.random() * confettiCanvas.width;
+      this.y = Math.random() * confettiCanvas.height - confettiCanvas.height;
+      this.size = 10 + Math.random() * 15;
+      this.color = `hsl(${Math.random() * 30 + 340}, 90%, 75%)`;
+      this.tilt = Math.random() * 10 - 10;
+      this.tiltAngle = 0;
+      this.tiltSpeed = 0.05 + Math.random() * 0.05;
+      this.speedY = 2 + Math.random() * 2;
     }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
 
-    // Confetti heart class
-    class ConfettiHeart {
-      constructor() {
+    draw() {
+      const ctx = confettiCanvas.getContext('2d');
+      ctx.beginPath();
+
+      const x = this.x + this.tilt;
+      const y = this.y;
+
+      ctx.moveTo(x, y);
+      ctx.bezierCurveTo(x, y - this.size / 2, x - this.size, y - this.size / 2, x - this.size, y);
+      ctx.bezierCurveTo(x - this.size, y + this.size / 2, x - this.size / 2, y + this.size, x, y + this.size);
+      ctx.bezierCurveTo(x + this.size / 2, y + this.size, x + this.size, y + this.size / 2, x + this.size, y);
+      ctx.bezierCurveTo(x + this.size, y - this.size / 2, x, y - this.size / 2, x, y);
+      ctx.closePath();
+
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+
+    update() {
+      this.y += this.speedY;
+      this.tiltAngle += this.tiltSpeed;
+      this.tilt = Math.sin(this.tiltAngle) * 10;
+
+      if (this.y > confettiCanvas.height + this.size) {
+        this.y = -this.size;
         this.x = Math.random() * confettiCanvas.width;
-        this.y = Math.random() * confettiCanvas.height - confettiCanvas.height;
-        this.size = 10 + Math.random() * 15;
-        this.color = `hsl(${Math.random() * 30 + 340}, 90%, 75%)`; // pink-red hues
-        this.tilt = Math.random() * 10 - 10;
-        this.tiltAngle = 0;
-        this.tiltSpeed = 0.05 + Math.random() * 0.05;
-        this.speedY = 2 + Math.random() * 2;
-      }
-
-      draw() {
-        const ctx = confettiCanvas.getContext('2d');
-        ctx.beginPath();
-
-        // Heart shape path
-        const x = this.x + this.tilt;
-        const y = this.y;
-
-        ctx.moveTo(x, y);
-        ctx.bezierCurveTo(x, y - this.size/2, x - this.size, y - this.size/2, x - this.size, y);
-        ctx.bezierCurveTo(x - this.size, y + this.size/2, x - this.size/2, y + this.size, x, y + this.size);
-        ctx.bezierCurveTo(x + this.size/2, y + this.size, x + this.size, y + this.size/2, x + this.size, y);
-        ctx.bezierCurveTo(x + this.size, y - this.size/2, x, y - this.size/2, x, y);
-        ctx.closePath();
-
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-
-      update() {
-        this.y += this.speedY;
-        this.tiltAngle += this.tiltSpeed;
-        this.tilt = Math.sin(this.tiltAngle) * 10;
-
-        if (this.y > confettiCanvas.height + this.size) {
-          this.y = -this.size;
-          this.x = Math.random() * confettiCanvas.width;
-        }
       }
     }
+  }
 
-    // Confetti animation setup
-    let confettiHearts = [];
-    function startConfetti() {
-      confettiHearts = [];
-      for (let i = 0; i < 100; i++) {
-        confettiHearts.push(new ConfettiHeart());
-      }
-      animateConfetti();
+  let confettiHearts = [];
+  function startConfetti() {
+    confettiHearts = [];
+    for (let i = 0; i < 100; i++) {
+      confettiHearts.push(new ConfettiHeart());
     }
+    animateConfetti();
+  }
 
-    function animateConfetti() {
-      ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-      confettiHearts.forEach(h => {
-        h.update();
-        h.draw();
-      });
-      requestAnimationFrame(animateConfetti);
-    }
-  </script>
+  function animateConfetti() {
+    ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    confettiHearts.forEach(h => {
+      h.update();
+      h.draw();
+    });
+    requestAnimationFrame(animateConfetti);
+  }
+</script>
 </body>
 </html>
